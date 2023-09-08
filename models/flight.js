@@ -11,6 +11,18 @@ function addYearsToDate(_date,_noOfYears)
 //usage of the function addYearsToDate
 const todayDate = new Date();
 
+const destinationSchema = new Schema({
+  airport: {
+    type: String,
+    enum: [ 'AUS', 'DFW', 'DEN', 'LAX', 'SAN' ],
+    default: 'DEN'
+  },
+  arrival: {
+    type: Date
+  },
+},{
+  timestamps: true
+});
 
 const flightSchema = new Schema({
   airline: {
@@ -28,7 +40,9 @@ const flightSchema = new Schema({
   departs: {
     type: Date,
     default: addYearsToDate(todayDate,1)
-  }
+  },
+  destinations: [ destinationSchema ]
+
   },{
   timestamps: true
 });

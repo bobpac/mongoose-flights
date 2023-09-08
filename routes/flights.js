@@ -8,6 +8,10 @@ const flightsCtrl = require('../controllers/flights');
 router.get('/', flightsCtrl.index);
 // GET /flihts/new
 router.get('/new', flightsCtrl.new);
+// GET /flights/:id (show functionality) MUST be below new route
+router.get('/:id', flightsCtrl.show);
 // POST /flights
 router.post('/', flightsCtrl.create);
+// PUT /flights/:id
+router.put('/:id',flightsCtrl.update);
 module.exports = router;
