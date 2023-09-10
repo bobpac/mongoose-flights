@@ -4,8 +4,6 @@ var router = express.Router();
 // You'll be creating this controller module next
 const flightsCtrl = require('../controllers/flights');
 
-// GET /flights/:id/newTicket
-router.get('/:id/newTicket',flightsCtrl.newTicket)
 // GET /flights
 router.get('/', flightsCtrl.index);
 // GET /flihts/new
@@ -16,4 +14,5 @@ router.get('/:id', flightsCtrl.show);
 router.post('/', flightsCtrl.create);
 // PUT /flights/:id
 router.put('/:id',flightsCtrl.update);
+
 module.exports = router;

@@ -4,10 +4,9 @@ const Ticket = require('../models/ticket');
 module.exports = {
   index,
   show,
-  newTicket,
   new: newFlight,
-  create,
-  update
+  update,
+  create
 };
 
 async function index(req, res, next) {
@@ -29,10 +28,6 @@ function newFlight(req, res, next) {
   res.render('flights/new', { errorMsg: '' });
 }
 
-async function newTicket(req, res, next) {
-  const flight = await Flight.findById(req.params.id);
-  res.render(`flights/newTicket`, { flightNo: flight.flightNo , flightId: req.params.id });
-}
 
 async function update(req, res, next) {
 
