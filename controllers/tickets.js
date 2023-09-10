@@ -3,9 +3,10 @@ const Flight = require('../models/flight');
 
 module.exports = {
   create,
-  newTicket
+  new: newTicket
 };
 
+// Create a new ticket in mongoose
 async function create(req, res, next) {
 
   req.body.flightNo = parseInt(req.body.flightNo);
@@ -24,5 +25,5 @@ async function create(req, res, next) {
 
 async function newTicket(req, res, next) {
   const flight = await Flight.findById(req.params.id);
-  res.render(`tickets/newTicket`, { flightNo: flight.flightNo , flightId: req.params.id });
+  res.render(`tickets/new`, { flightId: req.params.id });
 }

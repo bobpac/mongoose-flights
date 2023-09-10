@@ -28,7 +28,6 @@ function newFlight(req, res, next) {
   res.render('flights/new', { errorMsg: '' });
 }
 
-
 async function update(req, res, next) {
 
   try {
