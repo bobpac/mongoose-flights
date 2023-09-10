@@ -1,8 +1,10 @@
 const Flight = require('../models/flight');
+const Ticket = require('../models/ticket');
 
 module.exports = {
   index,
   show,
+  newTicket,
   new: newFlight,
   create,
   update
@@ -10,13 +12,15 @@ module.exports = {
 
 async function index(req, res, next) {
   const flights = await Flight.find({});
-  res.render('flights/index', { title: 'God is good' , flights });
+  res.render('flights/index', { title: 'Mongoose Flights' , flights });
 }
 
 async function show(req, res, next) {
   // Populate the destinations array with destination docs instead of ObjectIds
   const flight = await Flight.findById(req.params.id).populate('destinations');
-  res.render('flights/show', { title: 'Flight Detail', flight });
+    // Populate the tickets
+  const tickets = await Ticket.find({flight: req.params.id})
+  res.render('flights/show', { title: 'Flight Detail', flight, tickets});
 }
 
 function newFlight(req, res, next) {
@@ -25,9 +29,13 @@ function newFlight(req, res, next) {
   res.render('flights/new', { errorMsg: '' });
 }
 
+async function newTicket(req, res, next) {
+  const flight = await Flight.findById(req.params.id);
+  res.render(`flights/newTicket`, { flightNo: flight.flightNo , flightId: req.params.id });
+}
+
 async function update(req, res, next) {
-  console.log(req.body);
-  console.log(req.params);
+
   try {
     await Flight.updateOne(req.body);
     // Always redirect after CUDing data
@@ -38,7 +46,6 @@ async function update(req, res, next) {
     console.log(err);
     res.render('flights/new', { errorMsg: err.message });
   }
-
 }
 
 async function create(req, res, next) {
